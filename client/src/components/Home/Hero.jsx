@@ -5,12 +5,13 @@ const Hero = () => {
 
     const [menuOpen, setMenuOpen] = React.useState(false);
 
+    // Using companies relevant to resumes/job hunting with reliable logo sources
     const logos = [
-        'https://saasly.prebuiltui.com/assets/companies-logo/instagram.svg',
-        'https://saasly.prebuiltui.com/assets/companies-logo/framer.svg',
-        'https://saasly.prebuiltui.com/assets/companies-logo/microsoft.svg',
-        'https://saasly.prebuiltui.com/assets/companies-logo/huawei.svg',
-        'https://saasly.prebuiltui.com/assets/companies-logo/walmart.svg',
+        { name: 'LinkedIn', url: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png' },
+        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg' },
+        { name: 'Microsoft', url: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg' },
+        { name: 'Amazon', url: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg' },
+        { name: 'Meta', url: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg' },
     ]
 
   return (
@@ -103,8 +104,8 @@ const Hero = () => {
 
                     <p className="py-6 text-slate-600 mt-14">Trusting by leading brands, including</p>
 
-                    <div className="flex flex-wrap justify-between max-sm:justify-center gap-6 max-w-3xl w-full mx-auto py-4" id="logo-container">
-                        {logos.map((logo, index) => <img key={index} src={logo} alt="logo" className="h-6 w-auto max-w-xs" />)}
+                    <div className="flex flex-wrap justify-center items-center gap-20 max-w-4xl w-full mx-auto py-4" id="logo-container">
+                        {logos.map((logo, index) => <img key={index} src={logo.url} alt={logo.name} className="h-10 w-auto opacity-50 hover:opacity-100 transition grayscale hover:grayscale-0" />)}
                     </div>
                 </div>
             </div>
