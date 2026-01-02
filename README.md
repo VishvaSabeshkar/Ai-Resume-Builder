@@ -37,5 +37,5 @@ A full-stack AI-powered online resume builder built using the MERN stack. Users 
 - ImageKit (Profile image storage & BG removal)
 
 ### Deployment
-- Hostinger VPS (Ubuntu + Nginx)
+- Hostinger VPS
 - PM2 for process management
