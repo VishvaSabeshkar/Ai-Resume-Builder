@@ -158,7 +158,7 @@ const Dashboard = () => {
                 />
               </div>
 
-              <button className='w-full py-2 bg-green-600 text-white rounded hover:bg-purple-700 transition-colors'>
+              <button className='w-full py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors'>
                 Upload Resume
               </button>
               <XIcon
