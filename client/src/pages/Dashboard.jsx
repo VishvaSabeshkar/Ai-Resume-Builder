@@ -30,6 +30,18 @@ const Dashboard = () => {
     navigate(`/app/builder/res123`);
   };
 
+  const editTitle = async (event) => {
+    event.preventDefault();
+  }
+
+  const deleteResume = async (resumeId) => {
+    const confirm = window.confirm("Are you sure you want to delete this resume?");
+    if (confirm) {
+      setAllResumes(prev => prev.filter(resume => resume._id !== resumeId));
+    }
+
+  }
+
   useEffect(() => {
     loadAllResumes();
   }, []);
@@ -41,7 +53,6 @@ const Dashboard = () => {
           Welcome, Sabeshkar
         </p>
 
-        {/* Create / Upload Buttons */}
         <div className='flex gap-4'>
           <button
             onClick={() => setShowCreateResume(true)}
@@ -62,13 +73,12 @@ const Dashboard = () => {
 
         <hr className='border-slate-300 my-6 sm:w-[305px]' />
 
-        {/* Resume Cards */}
         <div className='grid grid-cols-2 sm:flex flex-wrap gap-4'>
           {allresumes.map((resume, index) => {
             const baseColor = colors[index % colors.length];
             return (
               <button
-                key={index}
+                key={index} onClick={() => navigate(`/app/builder/${resume._id}`)}
                 className='relative w-full sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 border group hover:shadow-lg transition-all duration-300 cursor-pointer'
                 style={{
                   background: `linear-gradient(135deg, ${baseColor}10, ${baseColor}40)`,
@@ -82,20 +92,22 @@ const Dashboard = () => {
                 <p className='absolute bottom-1 text-[11px] text-slate-400 group-hover:text-slate-500 transition-all duration-300 px-2 text-center' style={{ color: baseColor + '90' }}>
                   Updated on {new Date(resume.updatedAt).toLocaleDateString()}
                 </p>
-                <div className='absolute top-1 right-1 group-hover:flex items-center hidden'>
-                  <Trash className="size-7 p-1.5 hover:bg-white/50 rounded text-slate-700 transition-colors" />
-                  <Pencil className="size-7 p-1.5 hover:bg-white/50 rounded text-slate-700 transition-colors" />
+                <div onClick={ e => e.stopPropagation()} className='absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                  <Trash onClick={() => deleteResume(resume._id)} className="size-7 p-1.5 hover:bg-white/50 rounded text-slate-700 transition-colors" />
+                  <Pencil onClick={() => {
+                    setEditResumeId(resume._id);
+                    setTitle(resume.title);
+                  }} className="size-7 p-1.5 hover:bg-white/50 rounded text-slate-700 transition-colors" />
                 </div>
               </button>
             );
           })}
         </div>
 
-        {/* Create Resume Modal */}
         {showCreateResume && (
-          <form onSubmit={createResume} onClick={() => setShowCreateResume(false)} className='fixed inset-0 bg-black/70 backdrop-blur bg-opacity-50 z-10 flex items-center justify-center'>
+          <form onSubmit={createResume} onClick={() => setEditResumeId('')} className='fixed inset-0 bg-black/70 backdrop-blur bg-opacity-50 z-10 flex items-center justify-center'>
             <div onClick={e => e.stopPropagation()} className='relative bg-slate-50 border shadow-md rounded-lg w-full max-w-sm p-6'>
-              <h2 className='text-xl font-bold mb-4'>Create a Resume</h2>
+              <h2 className='text-xl font-bold mb-4'>Edit Resume Title</h2>
               <input
                 type="text"
                 placeholder='Enter resume title'
@@ -105,12 +117,12 @@ const Dashboard = () => {
                 required
               />
               <button className='w-full py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors'>
-                Create Resume
+                Update
               </button>
               <XIcon
                 className='absolute top-4 right-4 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors'
                 onClick={() => {
-                  setShowCreateResume(false);
+                  setEditResumeId('');
                   setTitle('');
                 }}
               />
@@ -123,7 +135,6 @@ const Dashboard = () => {
             <div onClick={e => e.stopPropagation()} className='relative bg-white border shadow-md rounded-lg w-full max-w-sm p-6'>
               <h2 className='text-xl font-bold mb-4'>Upload Resume</h2>
 
-              {/* Resume title */}
               <input
                 type="text"
                 placeholder='Enter resume title'
@@ -133,7 +144,6 @@ const Dashboard = () => {
                 required
               />
 
-              {/* Upload Box */}
               <div>
                 <label htmlFor="resume-input" className="block text-sm text-slate-700">
                   Select resume file
@@ -172,6 +182,33 @@ const Dashboard = () => {
             </div>
           </form>
         )}
+
+        {editResumeId && (
+          <form onSubmit={editTitle} onClick={() => setEditResumeId('')} className='fixed inset-0 bg-black/70 backdrop-blur bg-opacity-50 z-10 flex items-center justify-center'>
+            <div onClick={e => e.stopPropagation()} className='relative bg-slate-50 border shadow-md rounded-lg w-full max-w-sm p-6'>
+              <h2 className='text-xl font-bold mb-4'>Edit Resume Title</h2>
+              <input
+                type="text"
+                placeholder='Enter resume title'
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className='w-full px-4 py-2 mb-4 border border-slate-300 rounded focus:outline-none focus:border-green-600 focus:ring-2 focus:ring-green-600/20'
+                required
+              />
+              <button className='w-full py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors'>
+                Update
+              </button>
+              <XIcon
+                className='absolute top-4 right-4 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors'
+                onClick={() => {
+                  setEditResumeId('');
+                  setTitle('');
+                }}
+              />
+            </div>
+          </form>
+        )}
+
       </div>
     </div>
   );
