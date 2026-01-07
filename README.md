@@ -1,4 +1,4 @@
-# 🧠 AI Resume Builder (MERN Stack)
+# 🧠 AI Resume Builder
 
 A full-stack AI-powered online resume builder built using the MERN stack. Users can sign up, create and manage multiple resumes, get real-time previews, optimize their resumes with AI (Google Gemini), and upload profile images with background removal via ImageKit.
 
