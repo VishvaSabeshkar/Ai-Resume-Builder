@@ -105,9 +105,9 @@ const Dashboard = () => {
         </div>
 
         {showCreateResume && (
-          <form onSubmit={createResume} onClick={() => setEditResumeId('')} className='fixed inset-0 bg-black/70 backdrop-blur bg-opacity-50 z-10 flex items-center justify-center'>
+          <form onSubmit={createResume} onClick={() => setShowCreateResume(false)} className='fixed inset-0 bg-black/70 backdrop-blur bg-opacity-50 z-10 flex items-center justify-center'>
             <div onClick={e => e.stopPropagation()} className='relative bg-slate-50 border shadow-md rounded-lg w-full max-w-sm p-6'>
-              <h2 className='text-xl font-bold mb-4'>Edit Resume Title</h2>
+              <h2 className='text-xl font-bold mb-4'>Create New Resume</h2>
               <input
                 type="text"
                 placeholder='Enter resume title'
@@ -117,12 +117,12 @@ const Dashboard = () => {
                 required
               />
               <button className='w-full py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors'>
-                Update
+                Create
               </button>
               <XIcon
                 className='absolute top-4 right-4 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors'
                 onClick={() => {
-                  setEditResumeId('');
+                  setShowCreateResume(false);
                   setTitle('');
                 }}
               />
